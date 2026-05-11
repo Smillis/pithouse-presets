@@ -28,23 +28,28 @@ export const WHEELBASES = [
   'R12',
   'R16',
   'R21',
-  'GS',
 ] as const;
 
 export const GAMES = [
   'Assetto Corsa',
   'Assetto Corsa Competizione',
-  'iRacing',
-  'Gran Turismo 7',
+  'Assetto Corsa EVO',
+  'Assetto Corsa Rally',
+  'Automobilista 2',
+  'Beam.NG',
+  'CarX',
+  'Dirt Rally 2.0',
   'F1 25',
   'F1 24',
   'F1 23',
-  'rFactor 2',
-  'Automobilista 2',
-  'WRC',
-  'Dirt Rally 2.0',
-  'RaceRoom Racing Experience',
+  'Forza Horizon 5',
+  'Forza Motorsport 8',
+  'Gran Turismo 7',
+  'iRacing',
   'Le Mans Ultimate',
+  'rFactor 2',
+  'RaceRoom Racing Experience',
+  'WRC',
 ] as const;
 
 export type Wheelbase = typeof WHEELBASES[number];
