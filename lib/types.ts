@@ -7,6 +7,7 @@ export interface Preset {
   file_path: string;
   original_filename: string;
   downloads: number;
+  images: string[];
   created_at: string;
   avg_rating?: number;
   rating_count?: number;

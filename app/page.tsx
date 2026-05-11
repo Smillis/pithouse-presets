@@ -85,9 +85,16 @@ export default function HomePage() {
             </span>
             <span className="font-medium text-lg hidden sm:block">Presets</span>
           </Link>
-          <div className="text-xs" style={{ color: 'var(--muted)' }}>
-            Moza Sim Racing
-          </div>
+          <Link
+            href="/upload"
+            className="text-sm font-medium px-3 py-1.5 rounded-lg transition-colors"
+            style={{
+              background: 'var(--accent)',
+              color: '#fff',
+            }}
+          >
+            + Share Preset
+          </Link>
         </div>
       </header>
 

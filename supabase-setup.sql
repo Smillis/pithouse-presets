@@ -13,8 +13,12 @@ CREATE TABLE IF NOT EXISTS presets (
   file_path        TEXT NOT NULL,
   original_filename TEXT NOT NULL,
   downloads        INTEGER NOT NULL DEFAULT 0,
+  images           TEXT[] NOT NULL DEFAULT '{}',
   created_at       TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+-- If the table already exists, add the images column:
+ALTER TABLE presets ADD COLUMN IF NOT EXISTS images TEXT[] NOT NULL DEFAULT '{}';
 
 -- 2. Ratings table
 CREATE TABLE IF NOT EXISTS ratings (
@@ -62,13 +66,13 @@ CREATE POLICY "Public insert ratings"
 CREATE POLICY "Public update own rating"
   ON ratings FOR UPDATE USING (true);
 
--- 5. Storage bucket
--- In the Supabase dashboard: Storage → New bucket → Name: "presets" → Private
--- Then add the following storage policy so the API can read/write files:
+-- 5. Storage buckets
 --
--- Policy name: "Service role full access"
--- Allowed operation: ALL
--- Target roles: service_role
+-- Bucket 1 — preset JSON files (private, accessed via signed URLs):
+--   Storage → New bucket → Name: "presets" → Private
+--   Add policy: name "Service role full access", operation ALL, role: service_role
 --
--- And for public signed URL reads (already handled by createSignedUrl):
--- No additional policy needed — signed URLs work without a public bucket policy.
+-- Bucket 2 — screenshot images (public, URLs are permanent):
+--   Storage → New bucket → Name: "images" → Public
+--   Add policy: name "Service role full access", operation ALL, role: service_role
+--   Public read is handled automatically by the bucket being set to Public.

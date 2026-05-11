@@ -19,8 +19,9 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/admin/upload', request.url));
   }
 
-  // Protect admin API routes
-  if (pathname.startsWith('/api/admin/')) {
+  // Protect admin API routes — but not the login/logout endpoints themselves
+  const isPublicAdminApi = pathname === '/api/admin/login' || pathname === '/api/admin/logout';
+  if (pathname.startsWith('/api/admin/') && !isPublicAdminApi) {
     if (!isAuthenticated) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
